@@ -32,13 +32,15 @@ ARTICLES = [
 
 def calculate_recipients
   # TODO (Step 3) - Fix, not working
+  array = []
   SUBSCRIBERS.each do |email|
-    UNSUBSCRIBED.include?(email)
-    
-    
-
-
+   array.push(email) unless UNSUBSCRIBED.include?(email)
   end
+
+    return array
+
+
+
 end
 
 def first_n_articles(number_of_articles)
