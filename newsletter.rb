@@ -109,6 +109,8 @@ def generate_newsletter(input)
   if input == nil
     # if there's no input number specified, print just the first 3 articles
     print_newsletter(3)
+  elsif input.to_i < 1
+    puts "Input should be a number more than 0"
   else
     # if a number of articles is specified, print that many articles
     # TODO (Step 6) - Fix, not working 
