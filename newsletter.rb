@@ -32,12 +32,19 @@ ARTICLES = [
 
 def calculate_recipients
   # TODO (Step 3) - Fix, not working
-  SUBSCRIBERS.each do |email|
-    UNSUBSCRIBED.include?(email)
+  UNSUBSCRIBED.each do |email|
+    index = 0
+    while index < UNSUBSCRIBED.length
+      if email == SUBSCRIBERS[index]
+        SUBSCRIBERS.reject email
+      end
+      index +=1
+    end
+    #email.delete_if {UNSUBSCRIBED.include?(email)}
   end
 end
 
-def first_n_articles(number_of_articles
+def first_n_articles(number_of_articles)
   ARTICLES.first(number_of_articles)
 end
 
@@ -75,10 +82,10 @@ def print_newsletter(number)
   print_recipients
   puts "Body:"
   puts "#{format_campus_location(CAMPUS)} Newsletter - #{format_week}"
-  articles = first_n_articles(number_of_articles)
+  articles = first_n_articles(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
-  end
+  
 end
 
 #########################
@@ -87,7 +94,7 @@ end
 
 def format_campus_location(campus)
   # TODO (Step 2) - Fix, not showing name.
-  "Flatiron #{campus["name"]}"
+  "Flatiron #{CAMPUS[:name]}"
 end
 
 def format_week
