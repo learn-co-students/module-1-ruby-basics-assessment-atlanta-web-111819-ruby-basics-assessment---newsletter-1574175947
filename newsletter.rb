@@ -32,12 +32,14 @@ ARTICLES = [
 
 def calculate_recipients
   # TODO (Step 3) - Fix, not working
+  sub_array = []
   SUBSCRIBERS.each do |email|
-    UNSUBSCRIBED.include?(email)
+    sub_array.push(email) unless UNSUBSCRIBED.include?(email)
   end
+  return sub_array
 end
 
-def first_n_articles(number_of_articles
+def first_n_articles(number_of_articles)
   ARTICLES.first(number_of_articles)
 end
 
@@ -55,15 +57,17 @@ end
 
 def print_one_article(article)
   # TODO (Step 4) - format article with title, byline, and text
-  puts "TITLE"
-  puts "by: AUTHOR"
-  puts "TEXT"
+  puts "#{article[:title]}"
+  puts "by: #{article[:author]}"
+  puts "#{article[:text]}"
   puts ""
 end
 
 def print_many_articles(articles)
   # TODO (Step 5) - should print all the articles, not just the first one
-  print_one_article(articles.first)
+  articles.each do |article|
+  print_one_article(article)
+  end
 end
 
 def print_newsletter(number)
@@ -75,10 +79,9 @@ def print_newsletter(number)
   print_recipients
   puts "Body:"
   puts "#{format_campus_location(CAMPUS)} Newsletter - #{format_week}"
-  articles = first_n_articles(number_of_articles)
+  articles = first_n_articles(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
-  end
 end
 
 #########################
@@ -87,7 +90,7 @@ end
 
 def format_campus_location(campus)
   # TODO (Step 2) - Fix, not showing name.
-  "Flatiron #{campus["name"]}"
+  "Flatiron #{campus[:name]}"
 end
 
 def format_week
@@ -109,7 +112,7 @@ def generate_newsletter(input)
   else
     # if a number of articles is specified, print that many articles
     # TODO (Step 6) - Fix, not working 
-    number_of_articles = input
+    number_of_articles = input.to_i
     print_newsletter(number_of_articles)
   end
 end
