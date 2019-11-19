@@ -1,3 +1,5 @@
+require 'pry'
+
 # newsletter.rb
 # Generates this week's newsletter
 # Use:
@@ -32,15 +34,16 @@ ARTICLES = [
 
 def calculate_recipients
   # TODO (Step 3) - Fix, not working
+  unsubs = []
   SUBSCRIBERS.each do |email|
-    UNSUBSCRIBED.include?(email)
+    unsubs << UNSUBSCRIBED.include?(email)
   end
 end
 
-def first_n_articles(number_of_articles
-  ARTICLES.first(number_of_articles)
+def first_n_articles(number_of_articles)
+  ARTICLES.first.(number_of_articles).to_i
 end
-
+binding.pry
 #########################
 # helpers to print parts of the newsletter
 #########################
@@ -55,15 +58,15 @@ end
 
 def print_one_article(article)
   # TODO (Step 4) - format article with title, byline, and text
-  puts "TITLE"
-  puts "by: AUTHOR"
-  puts "TEXT"
+  puts "Mining"
+  puts "by: Destiny Blanda Bruen II"
+  puts "The orthogonal features, when combined, can explode into complexity."
   puts ""
 end
 
 def print_many_articles(articles)
   # TODO (Step 5) - should print all the articles, not just the first one
-  print_one_article(articles.first)
+  print_one_article(articles)
 end
 
 def print_newsletter(number)
@@ -75,10 +78,10 @@ def print_newsletter(number)
   print_recipients
   puts "Body:"
   puts "#{format_campus_location(CAMPUS)} Newsletter - #{format_week}"
-  articles = first_n_articles(number_of_articles)
+  articles = first_n_articles(articles)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
-  end
+  
 end
 
 #########################
@@ -87,7 +90,7 @@ end
 
 def format_campus_location(campus)
   # TODO (Step 2) - Fix, not showing name.
-  "Flatiron #{campus["name"]}"
+  "Flatiron #{campus}"
 end
 
 def format_week
