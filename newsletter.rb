@@ -6,6 +6,7 @@
 #########################
 # Data for the newsletter
 #########################
+require 'pry'
 
 CAMPUS = {
   "name": "Springfield",
@@ -32,12 +33,12 @@ ARTICLES = [
 
 def calculate_recipients
   # TODO (Step 3) - Fix, not working
-  SUBSCRIBERS.each do |email|
+  SUBSCRIBERS.reject do |email|
     UNSUBSCRIBED.include?(email)
   end
 end
 
-def first_n_articles(number_of_articles
+def first_n_articles(number_of_articles)
   ARTICLES.first(number_of_articles)
 end
 
@@ -55,15 +56,15 @@ end
 
 def print_one_article(article)
   # TODO (Step 4) - format article with title, byline, and text
-  puts "TITLE"
-  puts "by: AUTHOR"
-  puts "TEXT"
+  puts "#{article[:title]}"
+  puts "by: #{article[:author]}"
+  puts "#{article[:text]}"
   puts ""
 end
 
 def print_many_articles(articles)
   # TODO (Step 5) - should print all the articles, not just the first one
-  print_one_article(articles.first)
+  articles.each {|article| print_one_article(article)}
 end
 
 def print_newsletter(number)
@@ -75,10 +76,9 @@ def print_newsletter(number)
   print_recipients
   puts "Body:"
   puts "#{format_campus_location(CAMPUS)} Newsletter - #{format_week}"
-  articles = first_n_articles(number_of_articles)
+  articles = first_n_articles(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
-  end
 end
 
 #########################
@@ -87,7 +87,8 @@ end
 
 def format_campus_location(campus)
   # TODO (Step 2) - Fix, not showing name.
-  "Flatiron #{campus["name"]}"
+  #binding.pry
+  "Flatiron #{campus[:name]}"
 end
 
 def format_week
@@ -109,8 +110,13 @@ def generate_newsletter(input)
   else
     # if a number of articles is specified, print that many articles
     # TODO (Step 6) - Fix, not working 
-    number_of_articles = input
-    print_newsletter(number_of_articles)
+    number_of_articles = input.to_i
+    if number_of_articles > 0
+      number_of_articles = (number_of_articles > ARTICLES.length  ? ARTICLES.length : number_of_articles)
+      print_newsletter(number_of_articles)
+    else
+      puts "Input should be a number more than 0"
+    end
   end
 end
 
