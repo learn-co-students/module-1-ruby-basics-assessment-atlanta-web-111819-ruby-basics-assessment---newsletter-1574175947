@@ -32,12 +32,18 @@ ARTICLES = [
 
 def calculate_recipients
   # TODO (Step 3) - Fix, not working
+  array = []
   SUBSCRIBERS.each do |email|
-    UNSUBSCRIBED.include?(email)
+   array.push(email) unless UNSUBSCRIBED.include?(email)
   end
+
+    return array
+
+
+
 end
 
-def first_n_articles(number_of_articles
+def first_n_articles(number_of_articles)
   ARTICLES.first(number_of_articles)
 end
 
@@ -55,15 +61,20 @@ end
 
 def print_one_article(article)
   # TODO (Step 4) - format article with title, byline, and text
-  puts "TITLE"
-  puts "by: AUTHOR"
-  puts "TEXT"
+  puts article[:"title"]
+  puts "by: #{article[:"author"]}"
+  puts article[:"text"]
   puts ""
 end
 
 def print_many_articles(articles)
   # TODO (Step 5) - should print all the articles, not just the first one
-  print_one_article(articles.first)
+  x = 0 
+  while x < articles.length 
+
+    print_one_article(articles[x])
+    x +=1 
+  end 
 end
 
 def print_newsletter(number)
@@ -75,10 +86,10 @@ def print_newsletter(number)
   print_recipients
   puts "Body:"
   puts "#{format_campus_location(CAMPUS)} Newsletter - #{format_week}"
-  articles = first_n_articles(number_of_articles)
+  articles = first_n_articles(number)
   print_many_articles(articles)
   puts format_footer(CAMPUS)
-  end
+  
 end
 
 #########################
@@ -87,7 +98,7 @@ end
 
 def format_campus_location(campus)
   # TODO (Step 2) - Fix, not showing name.
-  "Flatiron #{campus["name"]}"
+  "Flatiron #{campus[:"name"]}"
 end
 
 def format_week
@@ -103,6 +114,41 @@ end
 #########################
 
 def generate_newsletter(input)
+
+  if input == nil
+    print_newsletter(3)
+    #x =0
+    #while x < 3 do
+     # print_newsletter(x)
+      #x += 1
+    #end
+  elsif input < 1 
+    print "Input should be a number more than 0 "
+  elsif input > ARTICLES.length
+    print_newsletter(ARTICLES.length)
+    #x = 0
+    #while x < ARTICLES.lenght do 
+     # print_newsletter(x)
+      #x +=1
+    #end 
+  else 
+    print_newsletter(input)
+   # x =0
+    #while x < input do 
+     # print_newsletter(x)
+      #x+=1
+    #end 
+  end
+end
+
+
+
+
+
+
+
+
+def nothing(ah)
   if input == nil
     # if there's no input number specified, print just the first 3 articles
     print_newsletter(3)
